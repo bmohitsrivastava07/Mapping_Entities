@@ -1,37 +1,24 @@
-Entities with mapping:
+ Checkout.java:
 
-
-_____________________________________________________________________________________________
-// Checkout.java
-_---------------------
 package com.ArtGalleryManagement.Backend.Entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "checkout")
 @Data
 public class Checkout {
-     
-	public Checkout(String userEmail, String checkoutDate, String returnDate, Long productId) {
-        this.userEmail = userEmail;
-        this.checkoutDate = checkoutDate;
-        this.returnDate = returnDate;
-        this.productId = productId;
-    }
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-      @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "checkout_id")
     private Long checkoutId;
 
-    @Column(name = "user_email")
-    private String userEmail;
+    @ManyToOne
+    @JoinColumn(name = "user_email")
+    private User user;
 
     @Column(name = "checkout_date")
     private String checkoutDate;
@@ -39,350 +26,151 @@ public class Checkout {
     @Column(name = "return_date")
     private String returnDate;
 
-    @Column(name = "product_id")
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-	public Long getCheckOutId() {
-		return checkoutId;
-	}
-
-	public void setCheckOutId(Long checkoutId) {
-		this.checkoutId = checkoutId;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getCheckoutDate() {
-		return checkoutDate;
-	}
-
-	public void setCheckoutDate(String checkoutDate) {
-		this.checkoutDate = checkoutDate;
-	}
-
-	public String getReturnDate() {
-		return returnDate;
-	}
-
-	public void setReturnDate(String returnDate) {
-		this.returnDate = returnDate;
-	}
-
-	public Long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
+     
 }
-____________________________________________________________________________________________
+_______________________________________________________________________________________
 
-// History.java
-
+History.java:
+-------------
 package com.ArtGalleryManagement.Backend.Entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "History")
 @Data
 public class History {
-    
- public History(){}
 
-    public History(String userEmail, String checkoutDate, String returnedDate, String title,
-                   String artist, String productDescription, String image) {
-        this.userEmail = userEmail;
-        this.checkoutDate = checkoutDate;
-        this.returnedDate = returnedDate;
-        this.title = title;
-        this.artist = artist;
-        this.productDescription = productDescription;
-        this.image = image;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-      @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id")
     private Long historyId;
 
-    @Column(name="user_email")
-    private String userEmail;
+    @ManyToOne
+    @JoinColumn(name = "user_email")
+    private User user;
 
-    @Column(name="checkout_date")
+    @Column(name = "checkout_date")
     private String checkoutDate;
 
-    @Column(name="returned_date")
+    @Column(name = "returned_date")
     private String returnedDate;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="artist")
+    @Column(name = "artist")
     private String artist;
 
-    @Column(name="product_description")
+    @Column(name = "product_description")
     private String productDescription;
 
-    @Column(name="image")
+    @Column(name = "image")
     private String image;
 
-	public Long getHistoryId() {
-		return historyId;
-	}
-
-	public void setHistoryId(Long historyId) {
-		this.historyId = historyId;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getCheckoutDate() {
-		return checkoutDate;
-	}
-
-	public void setCheckoutDate(String checkoutDate) {
-		this.checkoutDate = checkoutDate;
-	}
-
-	public String getReturnedDate() {
-		return returnedDate;
-	}
-
-	public void setReturnedDate(String returnedDate) {
-		this.returnedDate = returnedDate;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getArtist() {
-		return artist;
-	}
-
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-
-	public String getProductDescription() {
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-    
+    // ... other getters and setters ...
 }
-______________________________________________________________________________________
+__________________________________________________________________
 
-// Message.java
+
+Message.java:
+_____________
 
 package com.ArtGalleryManagement.Backend.Entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "messages")
 @Data
 public class Message {
-    public Message(){}
 
-    public Message(String title, String question) {
-        this.title = title;
-        this.question = question;
-    }
-
-
-    @ManyToOne
-    @JoinColumn(name = "admin_email")
-    private Admin admin;
-
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="message_id")
+    @Column(name = "message_id")
     private Long messageId;
 
-    @Column(name="user_email")
-    private String userEmail;
-
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="question")
+    @Column(name = "question")
     private String question;
 
-    @Column(name="admin_email")
+    @Column(name = "admin_email")
     private String adminEmail;
 
-    @Column(name="response")
+    @Column(name = "response")
     private String response;
 
-    @Column(name="closed")
+    @Column(name = "closed")
     private boolean closed;
-
-	public Long getMessageId() {
-		return messageId;
-	}
-
-	public void setMessageId(Long messageId) {
-		this.messageId = messageId;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
-	public String getAdminEmail() {
-		return adminEmail;
-	}
-
-	public void setAdminEmail(String adminEmail) {
-		this.adminEmail = adminEmail;
-	}
-
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
-	}
-
-	public boolean isClosed() {
-		return closed;
-	}
-
-	public void setClosed(boolean closed) {
-		this.closed = closed;
-	}
-}
-_________________________________________________________________________
-
-// Payment.java
-
-package com.ArtGalleryManagement.Backend.Entity;
-
-import lombok.Data;
-import javax.persistence.*;
-
-@Entity
-@Data
-@Table(name = "payment")
-public class Payment {
-    
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="payment_id")
-    private Long paymentId;
-
-	@Column(name="user_email")
-    private String userEmail;
-	@Column(name="amount")
-	private double amount;
 
     @ManyToOne
     @JoinColumn(name = "user_email")
     private User user;
 
-	public Long getPaymentId() {
-		return paymentId;
-	}
-	public void setPaymentId(Long paymentId) {
-		this.paymentId = paymentId;
-	}
-	public String getUserEmail() {
-		return userEmail;
-	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-	public double getAmount() {
-		return amount;
-	}
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-	
-     
+    // ... other getters and setters ...
 }
+_____________________________________________________________________________________
 
-_________________________________________________________________________________
+Payment.java:
+----------------
+package com.ArtGalleryManagement.Backend.Entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-// Product.java
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name="payment")
+public class Payment {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="payment_id")
+    private Long paymentId;
+    
+    @ManyToOne
+    @JoinColumn(name="user_email")
+    private User user;
+    
+    @Column(name="amount")
+    private double amount;
+
+    // ... other getters and setters ...
+}
+---------------------------------------
+
+Product.java:
+________________
+
 package com.ArtGalleryManagement.Backend.Entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "product")
 @Data
 public class Product {
-     
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Checkout> checkouts;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<History> histories;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Review> reviews;
-
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long productId;
@@ -401,178 +189,4 @@ public class Product {
 
     @Column(name = "quantity_available")
     private int quantityAvailable;
-
-    @Column(name = "category")
-    private String category;
-
-    @Column(name = "image")
-    private String image;
-
-	public Long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getArtist() {
-		return artist;
-	}
-
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-
-	public String getProductDescription() {
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
-	}
-
-	public int getQuantities() {
-		return quantities;
-	}
-
-	public void setQuantities(int quantities) {
-		this.quantities = quantities;
-	}
-
-	public int getQuantityAvailable() {
-		return quantityAvailable;
-	}
-
-	public void setQuantityAvailable(int quantityAvailable) {
-		this.quantityAvailable = quantityAvailable;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-    
-}
-__________________________________________________________________________________
-
-
-// Review.java
-package com.ArtGalleryManagement.Backend.Entity;
-
-import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import javax.persistence.*;
-import java.util.Date;
-
-@Entity
-@Table(name = "review")
-@Data
-public class Review {
-     
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private Long reviewId;
-
-    @Column(name = "user_email")
-    private String userEmail;
-
-    @Column(name = "date")
-    @CreationTimestamp
-    private Date date;
-
-    @Column(name = "rating")
-    private double rating;
-
-    @Column(name = "product_id")
-    private Long productId;
-
-    @Column(name = "review_description")
-    private String reviewDescription;
-
-	public Long getReviewId() {
-		return reviewId;
-	}
-
-	public void setReviewId(Long reviewId) {
-		this.reviewId = reviewId;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public double getRating() {
-		return rating;
-	}
-
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
-
-	public Long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
-	public String getReviewDescription() {
-		return reviewDescription;
-	}
-
-	public void setReviewDescription(String reviewDescription) {
-		this.reviewDescription = reviewDescription;
-	}
-
-}
-
-
-
-
-
-
-
-
-
-
-
 
